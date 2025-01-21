@@ -33,7 +33,6 @@ public class AuthController {
 	// post store the user in db
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-		
 		return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
 	}
 	
