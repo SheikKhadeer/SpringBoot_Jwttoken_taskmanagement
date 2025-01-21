@@ -54,11 +54,11 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new UserNotFound(String.format("user id %d not found", userId)));
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new TaskNotFound(String.format("task id %d not found", taskId)));
-		
-		if(user.getId()!=task.getUsers().getId()) {
+
+		if (user.getId() != task.getUsers().getId()) {
 			throw new ApiException(String.format("Task id %d is not belongs to user id", taskId));
 		}
-		return modelMapper.map(task,TaskDto.class);
+		return modelMapper.map(task, TaskDto.class);
 	}
 
 	@Override
@@ -67,13 +67,13 @@ public class TaskServiceImpl implements TaskService {
 				.orElseThrow(() -> new UserNotFound(String.format("user id %d not found", userId)));
 		Task task = taskRepository.findById(taskId)
 				.orElseThrow(() -> new TaskNotFound(String.format("task id %d not found", taskId)));
-		
-		if(user.getId()!=task.getUsers().getId()) {
+
+		if (user.getId() != task.getUsers().getId()) {
 			throw new ApiException(String.format("Task id %d is not belongs to user id", taskId));
 		}
-		
-		taskRepository.deleteById(taskId);//delete the task
-		
+
+		taskRepository.deleteById(taskId);// delete the task
+
 	}
 
 }

@@ -10,18 +10,16 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Entity
-@Table(name = "users",uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"email"})
-})
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
 @Data
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name="name",nullable = false)
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name="email",nullable = false)
+	@Column(name = "email", nullable = false)
 	private String email;
-	@Column(name="password",nullable = false)
+	@Column(name = "password", nullable = false)
 	private String password;
 }

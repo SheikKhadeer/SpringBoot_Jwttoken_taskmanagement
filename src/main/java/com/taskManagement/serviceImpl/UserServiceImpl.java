@@ -14,18 +14,17 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UsersRepository usersRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
-		
-		
+
 		userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		// Userdto is not an entity of users
 		Users users = userDtotoEntity(userDto);// convert userdto to users
-		
+
 		Users savedUser = usersRepository.save(users);
 		return entitytoUserDto(savedUser);
 	}

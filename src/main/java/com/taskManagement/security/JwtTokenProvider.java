@@ -30,7 +30,7 @@ public class JwtTokenProvider {
 		String email = authentication.getName();
 		Date currentDate = new Date();
 		Date expireDate = new Date(currentDate.getTime() + 1000 * 60 * 60);// one hour expiry
-System.out.println(secretKey);
+		System.out.println(secretKey);
 		String token = Jwts.builder().setSubject(email).setIssuedAt(currentDate).setExpiration(expireDate)
 				.signWith(secretKey).compact();
 		return token;
@@ -40,16 +40,15 @@ System.out.println(secretKey);
 		Claims cliams = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
 		return cliams.getSubject();
 	}
-	
+
 	public boolean validateToken(String token) {
 		try {
 			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
 			return true;
-		}catch(Exception e) {
-			throw new ApiException("token issue :  "+e.getMessage());
+		} catch (Exception e) {
+			throw new ApiException("token issue :  " + e.getMessage());
 		}
-		
-		
+
 	}
 
 }

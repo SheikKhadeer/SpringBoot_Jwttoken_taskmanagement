@@ -15,7 +15,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -23,21 +22,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private JwtTokenProvider jwtTokenProvider;
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
 		// GET THE TOKEN FROM HEADERS
-		String token =getToken(request);
-		
+		String token = getToken(request);
+
 		// CHECK THE TOKEN EITHER VALID OR NOT
-		if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
-			String email= jwtTokenProvider.getEmailFromToken(token);
-			UserDetails userDetails=customUserDetailsService.loadUserByUsername(email);
-			UsernamePasswordAuthenticationToken authentication= 
-					new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+		if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
+			String email = jwtTokenProvider.getEmailFromToken(token);
+			UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,
+					null, userDetails.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		}
 		filterChain.doFilter(request, response);
 

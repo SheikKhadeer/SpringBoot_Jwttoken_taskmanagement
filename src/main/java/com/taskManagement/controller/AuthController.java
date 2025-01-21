@@ -33,7 +33,7 @@ public class AuthController {
 	// post store the user in db
 	@PostMapping("/register")
 	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-		System.out.println("entered into controller");
+		
 		return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
 	}
 	

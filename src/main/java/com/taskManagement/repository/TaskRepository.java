@@ -10,7 +10,6 @@ import com.taskManagement.entity.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-
 	List<Task> findAllByUsersId(Long userId);
 
 }
