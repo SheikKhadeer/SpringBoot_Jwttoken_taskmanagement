@@ -29,11 +29,14 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpsecurity) throws Exception {
-		httpsecurity.csrf().disable().authorizeRequests().requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-				.anyRequest().authenticated();
+		System.out.println("entered into it");
+		httpsecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests(auth -> auth
+				.requestMatchers(HttpMethod.POST, "/api/users/register", "/api/users/login").permitAll()
+				.requestMatchers(HttpMethod.GET, "/api/users/", "/api/users/{id}").permitAll()
+				.requestMatchers(HttpMethod.DELETE, "/api/users/delete/{id}").permitAll().anyRequest().authenticated());
 
 		httpsecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
+		System.out.println("out");
 		return httpsecurity.build();
 	}
 
