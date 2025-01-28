@@ -30,6 +30,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
 	}
 	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+		ErrorDetails details = new ErrorDetails(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+	}
+	
 
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<ErrorDetails> handleApiException(ApiException ex, WebRequest request) {
